@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 05:48:42 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/02/24 05:43:22 by aoutifra         ###   ########.fr       */
+/*   Created: 2022/10/30 10:07:42 by aoutifra          #+#    #+#             */
+/*   Updated: 2023/02/21 04:22:04 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int main(int ac, char **av)
+size_t	ft_strlcpy(char *dst, const char *src, size_t n)
 {
+	size_t	i;
+	size_t	lensrc;
 
-    t_stack *stacks;
-
-    stacks = malloc(sizeof(t_stack));
-    if (!stacks)
-        return (printf("Error\n"));
-    chek(av,ac, stacks);
-
-    return 0;
+	i = 0;
+	lensrc = ft_strlen (src);
+	if (n)
+	{
+		while (src[i] && i < n - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (lensrc);
 }

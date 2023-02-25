@@ -1,26 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 05:48:42 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/02/24 05:43:22 by aoutifra         ###   ########.fr       */
+/*   Created: 2023/02/23 19:27:41 by aoutifra          #+#    #+#             */
+/*   Updated: 2023/02/23 19:28:43 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int main(int ac, char **av)
+char	*ft_strnstr(const char *h, const char *nl, size_t n)
 {
+	size_t	i;
+	size_t	j;
 
-    t_stack *stacks;
-
-    stacks = malloc(sizeof(t_stack));
-    if (!stacks)
-        return (printf("Error\n"));
-    chek(av,ac, stacks);
-
-    return 0;
+	i = 0;
+	if (!*nl || nl == '\0')
+		return ((char *)(h));
+	if (n <= 0)
+		return (NULL);
+	while (h[i] && i < n)
+	{
+		j = 0;
+		while (nl[j] && i + j < n)
+		{
+			if (h[i + j] == nl[j])
+			{
+				if (nl[j + 1] == '\0')
+					return ((char *)h + i);
+				j++;
+			}
+			else
+				break ;
+		}
+		i++;
+	}
+	return (0);
 }

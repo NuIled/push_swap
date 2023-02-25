@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 05:48:42 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/02/24 05:43:22 by aoutifra         ###   ########.fr       */
+/*   Created: 2023/02/23 22:46:09 by aoutifra          #+#    #+#             */
+/*   Updated: 2023/02/23 22:46:35 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include"push_swap.h"
 
-int main(int ac, char **av)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
+	size_t			i;
+	unsigned char	*s;
+	unsigned char	*d;
 
-    t_stack *stacks;
-
-    stacks = malloc(sizeof(t_stack));
-    if (!stacks)
-        return (printf("Error\n"));
-    chek(av,ac, stacks);
-
-    return 0;
+	s = (unsigned char *)(s1);
+	d = (unsigned char *)(s2);
+	i = 0;
+	while (i < n)
+	{
+		if (s[i] > d[i])
+			return (s[i] - d[i]);
+		else if (s[i] < d[i])
+			return (s[i] - d[i]);
+		i++;
+	}
+	return (0);
 }
