@@ -6,13 +6,14 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 03:45:29 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/02/25 03:05:44 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/02/27 02:50:33 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 
 int	ft_atoi(const char *str);
@@ -28,8 +29,19 @@ typedef struct stack{
     int *stacka;
     int *stackb;
     int args;
+    int pos;
+    int longe;
+    int longargs;
+    int last;
 }t_stack;
 void checkargs(char *av , int ac,t_stack *stack);
-int listcreating(int i, char *av ,t_stack *stacka);
+int listcreating(int i, char **av ,t_stack *stacka, int j);
 int chek(char **av, int ac,t_stack *stack);
+int smallest(t_stack *stack, int i);
+int pusha(t_stack *stack);
+int sortb(t_stack *stack);
+int pushb(t_stack *stack);
+void pushalltob(t_stack *stack);
+
+
 #endif

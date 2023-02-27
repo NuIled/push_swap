@@ -6,7 +6,7 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 22:46:09 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/02/23 22:46:35 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/02/27 01:01:53 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	while (i < n)
 	{
 		if (s[i] > d[i])
-			return (s[i] - d[i]);
+			return (-1);
 		else if (s[i] < d[i])
-			return (s[i] - d[i]);
+			return (1);
 		i++;
 	}
 	return (0);
