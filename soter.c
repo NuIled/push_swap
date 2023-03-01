@@ -6,20 +6,21 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 23:50:27 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/02/27 04:22:15 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/03/01 06:10:38 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+// ./push_swap 5 6 3 15 -1-1
 int ft_ifsorted(t_stack *stack)
 {
     int i;
     i = 0;
 
-    while (i < stack->args)
+
+    while (i < stack->args - 1)
     {
-        if(ft_memcmp(&stack->stacka[i],&stack->stacka[i + 1],sizeof(int)) == -1)
+        if(stack->stacka[i] > stack->stacka[i + 1])
             return 0;
         i++;
     }
@@ -29,151 +30,122 @@ int ft_ifsorted(t_stack *stack)
 int smallest(t_stack *stack ,int j)
 {
     int i;
-    
+    int l;
+    stack->pos = stack->stacka[0];
+    l = 0;
     i = 0;
-    while (i < j)
+    while (l < j - 1)
     {
-        if(ft_memcmp(&stack->stacka[i],&stack->stacka[i + 1],sizeof(int)) == -1)
-            stack->pos = stack->stacka[i + 1];
-        i++;
+        i = 0;
+        
+        while (i < j - 1)
+        {
+
+            if (stack->stacka[l] < stack->stacka[i + 1] && stack->stacka[l] < stack->pos) 
+                    stack->pos = stack->stacka[l];
+            i++;
+        }
+        l++;
     }
     return stack->pos;
 }
 
-void swapb(t_stack *stack)
+void swapa(t_stack *stack)
 {
     int tmp;
-    tmp = stack->stackb[0];
-    stack->stackb[0] = stack->stackb[1];
-    stack->stackb[1] = tmp;
+    tmp = stack->stacka[0];
+    stack->stacka[0] = stack->stacka[1];
+    stack->stacka[1] = tmp;
 }
 
 void rrb(t_stack *stack ,int j)
 {
-    int i = 0;
     int tmp;
 
     tmp = stack->stacka[j - 1];
-        // printf("\nstack->stacka== %i ===\n", stack->stacka[6]);
-    while(--j >= 0)
-       { 
+    while(j-- >= 0)
         stack->stacka[j] = stack->stacka[j - 1];
-        i++;
-        }
     stack->stacka[0] = tmp;
+   // free(newstack);
 }
+
 void pushalltob(t_stack *stack)
 {
     int i;
     int j;
     j = 0;
     i = 0;
+
     while (!ft_ifsorted(stack))
     {
-        smallest(stack,(stack->args - 1 - i));
-		printf("\n--after-%i++++\n",stack->pos);
+        smallest(stack,(stack->args));
+	   printf("\n%i\n",stack->pos);
         while (stack->stacka[0]!= stack->pos)
-            rrb(stack,stack->args);
-        pushb(stack);
-        // for(int i = 0 ; i < stack->args-1; i++)
-        // printf("\nstack->pos b[0]== %i ===\n", stack->pos);
-        i++;
-        if (i == stack->args)
-            {
-                while (j++ < stack->args)
-                    pusha(stack);
-                break;
-            }
-    }
-}
-int sortb(t_stack *stack)
-{
-    int i;
-    int j;
-    int l;
-    j = 0;
-    i = 0;
-    l = 0;
-    while (i < 6)
-    {
-        i = 0;
-        if(-1 == ft_memcmp(&stack->stackb[i],&stack->stackb[i + 1],sizeof(int)))
-            i++;
-        if(stack->stackb[0] < stack->stackb[1])
-            swapb(stack);
-        if(-1 == ft_memcmp(&stack->stackb[i],&stack->stackb[i + 1],sizeof(int)))
-            while(j++ < i)
-                pusha(stack);
-        while (l < i - j)
-        {
-            rrb(stack, i - j);
-            if(stack->stackb[0] < stack->stackb[1])
-                swapb(stack);
-            l++;
-        }
-        if(i == 6)
+            rrb(stack,(stack->args));
+        if (ft_ifsorted(stack))
             break;
+        pushb(stack,i);
+        if(stack->stacka[0] > stack->stacka[1])
+            swapa(stack);
+        i++;
+        
     }
-    return 1;
+	//    printf("\nargs%i",i);
+    	
+            pusha(stack,i);
+     
 }
 
-int pushb(t_stack *stack)
+
+void pushb(t_stack *stack,int j)
 {
-    int i;  
-    static int k;
+    int i = 0;
     int tmp;
-    int j;
-    i = 0;
-    j = 0;
-    
-        tmp = stack->stacka[i];
-    while (i < stack->args)
+    tmp = stack->stacka[0];
+
+    // int *newstack = malloc((stack->args)* sizeof(int));
+	//    printf("\narg----s%i",stack->stacka[0]);
+    while (i < stack->args - 1)
     {
-        while (j < stack->args-1)
-        {
-            stack->stacka[j] = stack->stacka[j + 1];
-            j++;
-        }
-        // for(int i = 0 ; i < stack->args; i++)
-		//     printf("\n--bigo-%i++++\n",stack->stacka[i]);
-        while (i < k)
-        {
-            stack->stackb[i + 1] = stack->stackb[i];
-            i++;
-        }
-        stack->stackb[0] = tmp;
-        k++;
-        // printf("\nstack b[0]== %i ===\n",stack->stacka[0]);
+        stack->stacka[i] = stack->stacka[i + 1];
+        i++;
     }
-    return 0;
+
+    while (j > 0)
+    {
+        stack->stackb[j] = stack->stackb[j - 1];
+        j--;
+    }
+    stack->stackb[0] = tmp;
+	//    printf("\narg----s%i",stack->stackb[1]);
+    // free(stack->stacka);
+    // stack->stacka = newstack;
+    stack->args-=1;
 }
-int pusha(t_stack *stack)
+
+int pusha(t_stack *stack,int i)
 {
-     int i;
-    int tmp;
-    static int j;
-    i = 0;
+    int j;
     j = 0;
-    
-    while (i < stack->args)
-    {
-        tmp = stack->stackb[i];
-        while (i < stack->args)
+    int *newstack;
+    int m = i;
+        
+
+    newstack = malloc(stack->sizea * sizeof(int));
+        
+        while (-1 != stack->args)
+            newstack[--stack->sizea]= stack->stacka[--stack->args];
+        while (j < m)
         {
-            stack->stackb[i] = stack->stackb[i + 1];
-            i++;
-        }
-        while (j < stack->args)
-        {
-            if (j == 0)
-            {
-                stack->stacka[j] = tmp;
-                return 1;
-            }
-            stack->stacka[j + 1] = stack->stacka[j];
+            newstack[i - 1] = stack->stackb[j];
+
             j++;
+            i--;
         }
-        stack->stacka[0] = tmp;   
-    }
+        stack->stacka = newstack;
+
+  
+      //  free(newstack);
+    
     return 0;
 }

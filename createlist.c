@@ -6,7 +6,7 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:44:46 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/02/27 03:45:03 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/03/01 06:08:54 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int listcreating(int i, char **av ,t_stack *stack,int j)
  	char *s;
  	char *avv;
 	int a;
-	while (l < stack->args+1)
+	while (l < stack->args + 1)
 	{
 		i = 0;
 		avv =	ft_substr(av[l], 0 , ft_strlen(av[l]));
@@ -84,18 +84,25 @@ int listcreating(int i, char **av ,t_stack *stack,int j)
 
 int checkdub(t_stack *stack, int j)
 {
-	int i;
-	i = 0;
-	// for (size_t f = 0; f < 9; f++)
-	while (i + 1 < j)
-	{
-		if(!ft_memcmp(&stack->stacka[i], &stack->stacka[i + 1], sizeof(int)))
+	    int i;
+    int l;
+    l = 0;
+    i = 0;
+    while (l < j - 1)
+    {
+        i = 1;
+        
+        while (i < j - 1)
+        {
+            if(stack->stacka[l] == stack->stacka[i + l])
 			{
 				free(stack);
 				exiterr();
 			}
 		i++;
-	}
+	 	}
+        l++;
+    }
 	return 1;
 }
 
@@ -109,21 +116,19 @@ int chek(char **av, int ac, t_stack *stack)
 		checkargs(av[i++],0,stack);
 	i = 1;
 	j = stack->args;
+	stack->sizea = stack->args;
+	stack->sizeb = stack->args;
 	stack->stacka = malloc(((stack->args) * sizeof(int)));
 	stack->stackb = malloc((stack->args * sizeof(int)));
 	if(!stack->stacka)
 		return (0);
 	if(!listcreating(0, av, stack, j))
 			return 0;
-
-	// stack->last = stack->stacka[stack->args];
-	checkdub(stack,j);
-	smallest(stack,stack->args);
+	// checkdub(stack,j);
 	pushalltob(stack);
-	for(int i = 0 ; i < stack->args; i++)
-		printf("\n---%i++++\n",stack->stacka[i]);
-	exit(1);
-	// printf("\n---%i++++\n",j);
+	// stack->last = stack->stacka[stack->args];
+
+	printf("\nj = %d\n", j);
 	
 	return 1;
 }

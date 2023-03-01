@@ -6,7 +6,7 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 03:45:29 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/02/27 02:50:33 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/03/01 05:50:03 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,17 @@ typedef struct stack{
     int args;
     int pos;
     int longe;
-    int longargs;
-    int last;
+    int sizea;
+    int sizeb;
 }t_stack;
 void checkargs(char *av , int ac,t_stack *stack);
 int listcreating(int i, char **av ,t_stack *stacka, int j);
 int chek(char **av, int ac,t_stack *stack);
 int smallest(t_stack *stack, int i);
-int pusha(t_stack *stack);
+int pusha(t_stack *stack,int i);
+void rrb(t_stack *stack ,int j);
 int sortb(t_stack *stack);
-int pushb(t_stack *stack);
+void pushb(t_stack *stack,int j);
 void pushalltob(t_stack *stack);
 
 
