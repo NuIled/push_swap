@@ -18,7 +18,7 @@ char	*ft_strnstr(const char *h, const char *nl, size_t n)
 	size_t	j;
 
 	i = 0;
-	if (!*nl || nl == '\0')
+	if (!*nl )
 		return ((char *)(h));
 	if (n <= 0)
 		return (NULL);

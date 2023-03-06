@@ -6,14 +6,14 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:44:46 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/03/01 06:08:54 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/03/05 09:29:03 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 void exiterr(void)
 {
-	write(1,"\nerror\n",9);
+	write(2,"\nerror\n",8);
 	exit(1);
 }
 int	ft_isdigit(char c)
@@ -51,31 +51,34 @@ void checkargs(char *av , int i, t_stack *stack)
 
 int listcreating(int i, char **av ,t_stack *stack,int j)
 {
-	int l = 1;
+	// int n = 0;
+	
  	char *s;
  	char *avv;
 	int a;
-	while (l < stack->args + 1)
+	int l = 1;
+	while (l < j)
 	{
 		i = 0;
 		avv =	ft_substr(av[l], 0 , ft_strlen(av[l]));
-	while (avv[i])
-	{
-		if(avv[i] == ' ')
-			i++;
-		if(avv[i] == '-' || avv[i] == '+' || ft_isdigit(avv[i]))
+
+		while (avv[i] && stack->sizeb >= 0)
 		{
-			a = 1;
+		while(avv[i] == ' ')
 			i++;
-			while (ft_isdigit(avv[i]))
+			if(avv[i] == '-' || avv[i] == '+' || ft_isdigit(avv[i]))
 			{
-				a++;
+				a = 1;
 				i++;
+				while (ft_isdigit(avv[i]))
+				{
+					a++;
+					i++;
+				}
+				s =	ft_substr(avv, i - a , a);				
+				stack->stacka[--stack->sizeb] = ft_atoi(s);
 			}
-			s =	ft_substr(avv, i - a , a);
-			stack->stacka[--j] = ft_atoi(s);
 		}
-	}
 	l++;
 	}
 	// free(s);
@@ -84,24 +87,24 @@ int listcreating(int i, char **av ,t_stack *stack,int j)
 
 int checkdub(t_stack *stack, int j)
 {
-	    int i;
+	int i;
     int l;
     l = 0;
-    i = 0;
-    while (l < j - 1)
+
+    while (l < j)
     {
         i = 1;
         
-        while (i < j - 1)
+        while (i + l < j)
         {
             if(stack->stacka[l] == stack->stacka[i + l])
 			{
 				free(stack);
 				exiterr();
 			}
-		i++;
+			i++;
 	 	}
-        l++;
+    l++;
     }
 	return 1;
 }
@@ -110,6 +113,7 @@ int chek(char **av, int ac, t_stack *stack)
 {
 	int i;
 	static int j;
+
 	i = 1;
 	stack->args=0;
 	while (i < ac)
@@ -118,17 +122,19 @@ int chek(char **av, int ac, t_stack *stack)
 	j = stack->args;
 	stack->sizea = stack->args;
 	stack->sizeb = stack->args;
+    stack->longe  = 0;
 	stack->stacka = malloc(((stack->args) * sizeof(int)));
 	stack->stackb = malloc((stack->args * sizeof(int)));
-	if(!stack->stacka)
+	if(!stack->stacka || !stack->stackb)
 		return (0);
-	if(!listcreating(0, av, stack, j))
-			return 0;
-	// checkdub(stack,j);
-	pushalltob(stack);
-	// stack->last = stack->stacka[stack->args];
-
-	printf("\nj = %d\n", j);
-	
+	if(!listcreating(0, av, stack, ac))
+			exit (0);
+	checkdub(stack,stack->sizea);
+	while(!ft_ifsorted(stack)) 
+		pushalltob(stack);
+	printf("\ninstract %i\n",stack->longe);
+	for (int i = 0; i < ac; i++)
+		printf("\na0rgs = %d", stack->stacka[i]);
+	printf("\nac==%i\n",ac);
 	return 1;
 }

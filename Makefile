@@ -1,6 +1,6 @@
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -g -fdiagnostics-color=always
+CFLAGS = -Wall -Werror -Wextra
 
 SRC= push_swap.c soter.c ft_memcmp.c createlist.c ft_strdup.c  ft_strlen.c ft_atoi.c ft_strlcpy.c ft_substr.c ft_strnstr.c \
 

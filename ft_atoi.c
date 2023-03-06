@@ -36,9 +36,9 @@ int	ft_atoi(const char *str)
 		res = (res * 10) + (str[i] - '0');
 		if (res > ((__INT64_MAX__ )/10) && str[i + 1] > 7 )
 		{	if (sign == 1)
-				return (-1);
+				exiterr();
 			else
-				return (0);
+				exiterr();
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 05:48:42 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/03/01 05:53:58 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/03/05 08:47:20 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,5 @@ int main(int ac, char **av)
     if (!stacks)
         return (printf("Error\n"));
     chek(av,ac, stacks);
-
-
-
-
-
-
     return 0;
 }
