@@ -1,8 +1,8 @@
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 
-SRC= push_swap.c soter.c ft_memcmp.c createlist.c ft_strdup.c  ft_strlen.c ft_atoi.c ft_strlcpy.c ft_substr.c ft_strnstr.c \
+SRC= push_swap.c soter.c ft_memcmp.c createlist.c ft_strdup.c  ft_strlen.c ft_atoi.c ft_strlcpy.c ft_split.c ft_strnstr.c \
 
 HEADER = push_swap.h
 
@@ -19,4 +19,6 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ) $(NAME)
+	rm -rf $(OBJ) $(NAME)
+fclean: clean
+	rm -rf $(NAME)

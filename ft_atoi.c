@@ -34,12 +34,8 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = (res * 10) + (str[i] - '0');
-		if (res > ((__INT64_MAX__ )/10) && str[i + 1] > 7 )
-		{	if (sign == 1)
-				exiterr();
-			else
-				exiterr();
-		}
+		if (res >= (__INT32_MAX__ / 10) && ((sign == 1 && str[i + 1] > '7' )|| (sign == -1 && str[i + 1] > '8')))
+			exiterr();
 		i++;
 	}
 	return (res * sign);
