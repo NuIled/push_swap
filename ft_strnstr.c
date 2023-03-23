@@ -6,7 +6,7 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:27:41 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/02/23 19:28:43 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/03/15 23:20:58 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strnstr(const char *h, const char *nl, size_t n)
 	size_t	j;
 
 	i = 0;
-	if (!*nl )
+	if (!*nl)
 		return ((char *)(h));
 	if (n <= 0)
 		return (NULL);

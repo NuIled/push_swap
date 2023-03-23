@@ -6,75 +6,113 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 05:48:42 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/03/15 05:12:13 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/03/21 22:58:17 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-int ft_smallest(t_stack *stack ,int j)
-{
-    int i;
-    int l;
-    int smallest;
-    l = 0;
-    i = 0;
-    smallest = 0;
-    while (l < j - 1)
-    {
-        i = 0;
-        
-        while (i < j - 1)
-        {
-            if (stack->stacka[l] < stack->stacka[i + 1] && stack->stacka[l] < smallest) 
-                {
-                    smallest = stack->stacka[l];
-                }
-            i++;
-        }
-        l++;
-    }
-    return smallest;
-}
-void ft_sortthree(t_stack *stack ,int i)
-{
 
-    if (stack->stacka[0] > stack->stacka[1])
-            swapa(stack); 
-    if (stack->stacka[0] == i)
-        pushb(stack);
-    if(ft_ifsorted(stack,stack->sizea))
-        return ;
-    else
-        while (stack->stacka[0] != i)
-            ra(stack);
-    if (stack->stacka[0] == i)
-        pushb(stack);
-    if (i == 1)
-        return ;
-    ft_sortthree(stack,i - 1);
-    pusha(stack);
-    ra(stack);
-}
-void my(void)
-    {
-        
-    system("leaks push");
-    }
-int main(int ac, char **av)
+void	checkdub(t_stack *stack, int j)
 {
-    atexit(my);
-    t_stack *stack;
-    stack = malloc(sizeof(t_stack));
-    if (!stack)
-        exiterr();
-    ft_initstack(av, ac, stack);
-    if (stack->args == 3)
-        ft_sortthree(stack, 2);
-    else if (stack->args == 4)
-        ft_sortthree(stack, 3);
-    else if (stack->args == 5)
-        ft_sortthree(stack, 4);
-    else
-        radixsorter(stack);
-    return 0;
+	int	i;
+	int	l;
+
+	l = 0;
+	while (l < j)
+	{
+		i = 1;
+		while (i + l < j)
+		{
+			if (stack->stacka[l] == stack->stacka[i + l])
+				exiterr ();
+			i++;
+		}
+	l++;
+	}
+}
+
+void	ft_initstack(char **av, int ac, t_stack *stack)
+{
+	int	i;
+
+	i = 0;
+	stack->args = 0;
+	while (++i < ac)
+		checkargs(av[i], 0, stack);
+	stack->sizea = stack->args;
+	stack->sizeb = 0;
+	stack->stacka = ft_calloc (1, stack->args * sizeof(int));
+	stack->stackb = ft_calloc (1, stack->args * sizeof(int));
+	stack->sorted = ft_calloc (1, stack->args * sizeof(int));
+	if (!stack->stacka || !stack->stackb || !stack->sorted)
+		exiterr ();
+	listcreating(av, stack, ac);
+	checkdub(stack, stack->sizea);
+	sorter(stack);
+}
+
+int	ft_ifsorted(t_stack *stack, int j)
+{
+	int	i;
+
+	i = 0;
+	while (i < j)
+	{
+		if (stack->stacka[i] > stack->stacka[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	ft_underthre(t_stack *stack, int i)
+{
+	int	j;
+
+	j = 0;
+	if (i == 2)
+		return (sorthree(stack));
+	while (!ft_ifsorted(stack, i))
+	{
+		while (stack->stacka[0] != j)
+			ra(stack);
+		pushb(stack);
+		--i;
+		++j;
+		if (i == 2)
+		{
+			sorter(stack);
+			sorthree(stack);
+			break ;
+		}
+	}
+	while (j)
+	{	
+		pusha(stack);
+		j--;
+	}
+}
+
+int	main(int ac, char **av)
+{
+	t_stack	*stack;
+
+	if (ac > 1)
+	{
+		stack = malloc(sizeof(t_stack));
+		if (!stack)
+			exit(0);
+		ft_initstack(av, ac, stack);
+		if (ft_ifsorted(stack, stack->args - 1))
+			exit(0);
+		if (stack->args < 7)
+			ft_underthre(stack, stack->args - 1);
+		else
+			radixsorter(stack);
+		free(stack->sorted);
+		free(stack->stacka);
+	}
+	else
+		exit(0);
+	return (0);
 }
